@@ -1,0 +1,10 @@
+env: "development"
+port: 3001
+db:
+  host: "localhost"
+  user: "postgres"
+  password: "admin"
+  port: 5432
+  name: "postgres"
+  max: 10
+  timeout: 30000
