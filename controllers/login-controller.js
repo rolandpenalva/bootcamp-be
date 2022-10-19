@@ -6,7 +6,10 @@ const {
   updateUser,
   updateUserLastLogin,
 } = require("../services/users-services");
-const { generateAccessToken, verifyToken } = require("../auth/token-services");
+const {
+  generateAccessToken,
+  verifyToken,
+} = require("../services/token-services");
 
 module.exports = {
   loginController: async (req, res, next) => {
@@ -26,11 +29,16 @@ module.exports = {
           if (err) {
             next(createError(401, "Unauthorized"));
           } else {
-            // const result = await updateUserLastLogin(user_name)
+            const result = await updateUserLastLogin(user_name);
+            if (!result) {
+              next(createError(500, "Internal Server Error"));
+            }
+            console.log(userResult.rows[0].usr_last_login);
             return res.json({
               user_name,
               user_email: userResult.rows[0].usr_email,
               user_rol: userResult.rows[0].usr_rol_id,
+              user_last_login: userResult.rows[0].usr_last_login,
               token: token,
             });
           }

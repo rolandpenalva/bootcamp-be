@@ -58,12 +58,12 @@ module.exports = {
   getUserByName: async (user_name) => {
     console.log("getUserByName ....");
     console.log(
-      ` select u.usr_name, u.usr_email, u.usr_password, u.usr_rol_id ` +
+      ` select u.usr_name, u.usr_email, u.usr_password, u.usr_rol_id, to_char(u.usr_last_login, 'YYYY-MM-DD HH24:MI:SS') usr_last_login ` +
         ` from db_user u ` +
         ` where u.usr_name like '${user_name}'`
     );
     const result = await pool().query(
-      ` select u.usr_name, u.usr_email, u.usr_password, u.usr_rol_id ` +
+      ` select u.usr_name, u.usr_email, u.usr_password, u.usr_rol_id, to_char(u.usr_last_login, 'YYYY-MM-DD HH24:MI:SS') usr_last_login ` +
         ` from db_user u ` +
         ` where u.usr_name like '${user_name}'`
     );
